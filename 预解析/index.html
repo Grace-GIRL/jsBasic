@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		fn(); // -> 2                                             
+        function fn() {console.log(1);}                           
+        fn(); // -> 2                                             
+        var fn = 10; // -> fn = 10                                
+        fn(); // -> 10()  Uncaught TypeError: fn is not a function                          
+        function fn() {console.log(2);}                           
+        fn();
+
+        var fn;
+        function fn(){console.log(1)};
+        function fn(){console.log(2)};
+        fn();//2
+        fn();//2
+        fn=10;
+        fn();//Uncaught TypeError: fn is not a function
+        fn();
+
+
+        // 2.
+        alert(a)
+		a();
+		var a=3;
+		function a(){
+		    alert(10)
+		}   
+		alert(a)
+		a=6;
+		a();  
+
+		var a;
+		function a(){
+			alert(10)
+		}
+		alert(a);//undefined  居然alert出来了  function a(){alert(10)}
+		a();//alert(10);
+		a=3;
+		alert(a);//3
+		a=6;
+		a();//uncaught typeError : a is not a function
+
+		//3
+
+		alert(a)
+		a();
+		var a=3;
+		var a=function(){
+		    alert(10)
+		}   
+		alert(a)
+		a=6;
+		a(); 
+		
+		var a;
+		alert(a);//undefined
+		a();//Uncaught typeError : a is not a function   报错之后就不会往下执行了；
+		a=3;
+		a=function(){alert(10)};
+		alert(a);
+		a=6;
+		a();
+
+		//4
+		var a=0;
+		function aa(){
+		    alert(a)
+		    a=3
+		}
+
+		var a;
+		function aa(){
+			alert(a);
+			a=3;
+		}
+		a=0;
+		//没有调用函数 所以alert不出来
+
+		//5
+		var a=0;
+		function aa(){
+		    alert(a)
+		    var a=3
+		}
+		aa();
+		
+		var a;
+		function aa(){
+			var a;
+			alert(a);
+			a=3;
+		}
+		a=0;
+		aa();//alert(0);  回答错误 应该是undefined
+
+		//6 
+		var a=0;
+		function aa(a){
+		    alert(a)
+		    var a=3
+		}
+		aa(5)
+		alert(a)
+
+		var a;
+		function aa(a){
+			var a;
+			alert(a);
+			a=3;
+		}
+		a=0;
+		aa(5);//5 在函数体内，参数a的优先级高于变量a
+		alert(a);//0
+
+		//7
+		var a=0;
+		function aa(a){
+		    alert(a)
+		    a=3
+		}
+		aa(5)
+		alert(a)
+
+		var a;
+		function aa(a){
+			alert(a);
+			a=3;
+		}
+		a=0;
+		aa(5);//5
+		alert(a);//0
+
+		//8
+		var a=0;
+		function aa(a){
+		    alert(a)
+		    var a=3
+		    alert(a)
+		}
+		aa(5)
+
+		var a;
+		function aa(a){//参数优先级高于变量声明
+			var a;
+			a=5;//形参和局部变量优先级一样
+			alert(a);
+			a=3;
+			alert(a);
+		}
+		aa(5);//5 3
+
+		//9
+		var a=0;
+		function aa(a){
+		    alert(a)
+		    a=3
+		    alert(a)
+		}
+		aa()
+		alert(a)
+
+
+
+		var a;
+		function aa(a){
+			var a;
+			alert(a);
+			a=3;//a=3，实际上修改的时形参a的值，并不是全局变量a
+			alert(a);
+		}
+		a=0;
+		aa();//undefined 3
+		alert(a);//0
+				
+
+		//10  这道题目的出题者给出的答案跟运行的不一样  -----
+		for (var i = 0; i < 5; i++) {
+		 	setTimeout(function() {
+		  		console.log(new Date, i);
+		 	}, 1000);
+		}
+
+		// 50,0 51,1 52,2 53,3 54,4    55,4
+		 
+		console.log(new Date, i);
+
+		Wed Jul 24 2019 13:51:47 GMT+0800 (中国标准时间) 5
+		undefined
+		VM151:3 Wed Jul 24 2019 13:51:48 GMT+0800 (中国标准时间) 1
+		VM151:3 Wed Jul 24 2019 13:51:48 GMT+0800 (中国标准时间) 1
+		VM151:3 Wed Jul 24 2019 13:51:48 GMT+0800 (中国标准时间) 1
+		VM151:3 Wed Jul 24 2019 13:51:48 GMT+0800 (中国标准时间) 1
+		VM151:3 Wed Jul 24 2019 13:51:48 GMT+0800 (中国标准时间) 1
+
+		for (var i = 0; i < 5; i++) {
+			 (function(j) { // j = i
+			  	setTimeout(function() {
+			  	 	console.log(new Date, j);
+			  	}, 1000);
+			 })(i);
+		}
+			 
+			console.log(new Date, i);
+			VM286:9 Wed Jul 24 2019 14:01:52 GMT+0800 (中国标准时间) 5
+			undefined
+			VM286:4 Wed Jul 24 2019 14:01:53 GMT+0800 (中国标准时间) 0
+			VM286:4 Wed Jul 24 2019 14:01:53 GMT+0800 (中国标准时间) 1
+			VM286:4 Wed Jul 24 2019 14:01:53 GMT+0800 (中国标准时间) 2
+			VM286:4 Wed Jul 24 2019 14:01:53 GMT+0800 (中国标准时间) 3
+			VM286:4 Wed Jul 24 2019 14:01:53 GMT+0800 (中国标准时间) 4
+
+
+
+
+			//11
+			for (var i = 0; i < 5; i++) {
+  				console.log(i);
+			}
+			console.log(i);// 0,1,2,3,4 5
+
+
+
+			for (var i = 0; i < 5; i++) {
+			 	setTimeout(function() {
+			  		console.log(i);
+			 	}, 1000);
+			}
+			console.log(i);//5 1,1,1,1  错误 5  5,5,5,5,5
+			//setTimeout是异步执行的，在执行setTimeout的时候，for循环已经执行完了；
+			//自定义了5个setTimeout，大概一秒后就会输出55555
+
+
+			for (var i = 0; i < 5; i++) {
+			 	(function(j) { // j = i
+			 	 	setTimeout(function() {
+			 	 	 console.log(j);
+			 	 	}, 1000);
+			 	})(i);
+			}
+			console.log(i); //5   0,1,2,3,4 
+
+
+			var output = function (i) {
+			 	setTimeout(function() {
+			 	 	console.log(i);
+			 	}, 1000);
+			}	
+			 
+			for (var i = 0; i < 5; i++) {
+			 	output(i); // 这里传过去的 i 值被复制了
+			}
+			console.log(i);//5 0,1,2,3,4
+
+
+			for (let i = 0; i < 5; i++) {
+			 setTimeout(function() {
+			  console.log(i);
+			 }, 1000);
+			}
+			console.log(i);//5 0,1,2,3,4
+
+
+
+			//12
+			function foo1(){
+				return { bar: "hello"};
+			}
+				 
+			function foo2(){
+				return
+				{ bar: "hello"};
+			}
+			var a=foo1();
+			var b=foo2();
+			console.log(a) 
+			console.log(b) 
+
+
+			var a; 
+			var b;
+			function foo1(){ return {bar:"hello"}};
+			function foo2(){ 
+				return 
+				{bar:"hello"}
+			};
+			a=foo1();
+			b=foo2();
+			console.log(a);//{bar:"hello"}
+			console.log(b);//undefined
+
+			//13
+			alert(a)
+			a();
+			var a=3;
+			function a(){
+			    alert(10)
+			}   
+			alert(a)
+			a=6;
+			a();  
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
