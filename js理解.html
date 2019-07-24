@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// 1.字符串操作的各种方法（基础）  splice(start,length,num1,num2,...)为数组的操作方法
+		字符方法  charAt(0) str[0]   charCodeAt()//获取指定位置字符的ASCII码
+		字符串操作方法 slice(start,end) subString(start,end) substr(start,length) concat()//拼接字符串
+		位置方法  indexOf() lastIndexOf()
+		去除空白  trim()
+		大小写转换   toUpperCase() toLowerCase()
+		其他  search()  replace() split()  fromCharCode()//把ASCII码转换为字符串 String.fromCharCode(101,102,103); egf
+
+		扩展：数组的方法 注意返回值和数组本事是否变化
+		arr.toString() arr.valueOf()
+		pop(),push(),shift(),unshift()
+		reverse(),sort()
+		concat(),slice(),splice()
+		indexOf(),lastIndexOf()
+		every(),filter(),forEach(),map(),some()
+		join()
+
+		//2ajax请求数据的步骤
+		var xhr=new XMLHttpRequest();
+		xhr.open("POST","ajax-data.php");
+		xhr.setRequset("Content-Type","application/x-www-form-urlencoded");
+		xhr.send();
+		xhr.onreadystatechange=function(){
+			if(this.readyState !== 4) return;
+			//获取所有响应头：
+			console.log(this.getAllResponseHeaders());
+			//获取指定响应头：
+			console.log(this.getResponseHeader("date"));
+			//获取响应体内容
+			console.log(this.responseText);
+
+		}
+		//对ajax进行封装
+		//重点是jquery中的ajax
+		$.ajax({
+			url:'',
+			method:'',
+			data:'',
+			success:function(res){
+
+			},
+			dataType:'json',
+			error:function(){},
+			beforeSend:function(){},
+			complete:function(){},
+			contentType:'application/json'
+		})
+		$.get("url",data,function(res){});
+		$.post()
+
+
+		// 3.js DOM节点的操作
+		方法：
+		appendChild() insertBefore()
+		removeChild() replaceChild()
+		创建 3：document.write("<li>111</li>") ul.innerHTML+="<li>2222</li>" document.createElement("li")
+		添加 2：appendChild()  insertBefore(新节点，参考节点)//新节点在参考节点之前
+		删除  2：removeChild()  remove()
+		复制  1：cloneNode(true) //true为深层复制，但都不能复制节点上的事件
+		替换  1：replaceChild(新节点，旧节点)
+
+		//4.jquery封装的插件
+		// 第一步：html，css画出界面
+		// 第二步：封装插件 $.prototype.tab=function(){ 书写jquery事件 }
+		// 第三步：引入插件实现效果
+
+
+		//5.call和apply的区别
+		call,apply,bind可以改变this指向；
+		call第一个参数为this的新指向，参数需要单个传递，在构造函数的构造继承中使用；Person.call(this,name,age);
+		apply第一个参数为this的新指向，参数以数组形式传递
+		bind第一个参数为this的新指向，参数需要单个传递，返回函数模版，不会立即执行
+
+
+		//6js创建对象的几种方式
+		var obj={}; obj.a=1; obj.eat=function(){};
+		var obj=new Object();
+		var obj={a:1,b:2};
+		// 工厂模式
+		// 构造函数的实例对象  
+		functon Person(name,age){this.name=name;this.age=age};  var p1=new Person();
+		// 构造函数的继承，构造继承+原型继承
+
+		//7事件冒泡，事件捕获 及 阻止事件冒泡和默认事件
+		事件传播event.eventPhase阶段 捕获-目标-冒泡  
+		事件引发者 event.target?event.target:event.srcElement;
+		事件冒泡是由内往外
+		事件捕获是由外向内
+		阻止事件冒泡 event.stopPropagation()?event.stopPropagation():event.cancleBubble=true;
+		阻止默认事件 event.preventDefault()?event.preventDefault():window.event.returnValue=false;
+		同时阻止事件冒泡和默认事件 return false
+
+		//8面向对象和类的区别
+		简单的说 类是对象的模版
+		js是面向对象的，对象具有 抽象性，封装性，继承性 面向对象不是面向过程的替代而是面向过程的封装
+			抽象出类-->根据类创建实例-->指挥实例的结果
+			创建对象：工厂函数-构造函数-构造函数的组合继承
+		对象的概念：面向对象编程的程序可以看作是多个对象的集合，对象=属性+方法；属性就是对象的数据，方法就是对象的行为；
+		类的概念：类是对象的模版，对象是类的实例化
+
+		//9.string和number的强制，隐式转换
+		数据强制 Number()  parseInt()  parseFloat() 隐式 数学运算
+		字符串强制 String(数据) 变量.toString()  隐式 ''+num 
+
+		//10caller和callee？
+		箭头函数不支持caller和callee，严格模式下为了安全也不支持，所以在开发中应该避免使用。
+
+		扩展：递归？
+	</script>
+</body>
+</html>

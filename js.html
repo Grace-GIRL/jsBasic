@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+	// 1.数组去重，并从大到小排序 [5,2,3,6,8,6,5,4,7,1,8] 
+	let arr = [5,2,3,6,8,6,5,4,7,1,8]
+	let s=new Set(arr);
+	console.log(s);
+	let newArr=Array.from(s);
+	console.log(newArr);
+
+	function uniq(arr){
+		var temp=[];
+		for(var i=0;i<arr.length;i++){
+			if(temp.indexOf(arr[i]) == -1){
+				temp.push(arr[i]);
+			}
+		}
+		return temp;
+	}
+	console.log(uniq(arr));
+
+	function uniq2(arr){
+		var temp=[];
+		for(var i=0;i<arr.length;i++){
+			if(arr.indexOf(arr[i]) == i){
+				temp.push(arr[i]);
+			}
+		}
+		return temp;
+	}
+	console.log(uniq2(arr));
+
+	function uniq3(arr){
+		var bArr=[];
+		for(var i=0;i<arr.length;i++){
+			if(!bArr.includes(arr[i])){
+				bArr.push(arr[i]);
+			}
+		}
+		return bArr;
+	}
+
+	console.log(uniq3(arr));
+
+	function sort(newArr){
+		for(var i=0;i<newArr.length-1;i++){
+			for(var j=0;j<newArr.length-1-i;j++){
+				if(newArr[j]>newArr[j+1]){
+					var temp=newArr[j];
+					newArr[j]=newArr[j+1];
+					newArr[j+1]=temp;
+				}
+			}
+		}
+		return newArr;
+	}
+	console.log(sort(uniq(arr)));
+
+	// 2.用js在10到100随机取出10个数据，并排序
+	function getRamdom(start,end){
+		return Math.floor(Math.ramdom()*(end-start+1)+start);
+	}
+	function getArr(arr){
+	   for(var i=0;i<10;i++){
+		   var arr=[];
+		   arr.push(getRamdom(10,100));
+		   return arr;
+	   }
+	}
+	for(var i=1;i<arr.length;i++){//比较的趟数
+		for(var j=0;j<arr.length-i;j++){//每趟比较的次数
+			if(arr[j]>arr[j+1]){
+				var temp=arr[j];
+				arr[j+1]=arr[j];
+				arr[j+1]=temp;
+			}
+		}
+	}
+	//3.已知数组stringArray=['This','is','Baidu','Campus'],alert出'This is Baidu Campus'
+	var stringArray=['This','is','Baidu','Campus'];
+	alert(stringArray.join(' '));
+	//4.已知 foo='get-element-by-id'，写一个function转化为驼峰命名法。
+	var fooo='get-element-by-id';
+	function result(foo){
+		var fooArr=foo.split('-');//[get,element,by,id]
+		for(var i=1;i<fooArr.length;i++){
+			fooArr[i]=fooArr[i].slice(0,1).toUpperCase()+fooArr[i].substr(1,fooArr[i].length-1);//[get,Element,By,Id]
+
+		}
+		var result=fooArr.join('');//'getElementById'
+		return result;
+	}
+	result(fooo);
+
+	//splice(start,num,item1,item1,...) 数组 删除/添加
+	//slice(start,end)  subString(start,end)  substr(start,num) 字符串的截取
+
+	//5.简述输出的是什么？
+	function Foo(){
+		var i=0;
+		return function(){
+			console.log(i++);
+		}
+	}
+	var f1=Foo();
+	f2=Foo();
+	f1();
+	f1();
+	f2();
+	console.log(i);
+	console.log(i++);
+
+	//6.已知url="http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e",获取GET参数，按照key-value的形式返回到json结构，如｛a:'1',b:'2',c:'',d:'xxx',e:undefined}
+	var url="http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e"
+	var urlArr=url.substr(url.indexOf("?")+1).split("&");//[a=1,b=2,c=,d=xxx,e] 
+	console.log(urlArr);
+	var urlObj={};
+	for(var i=0;i<urlArr.length;i++){
+		var item = urlArr[i].split('=') //[a,1] [b.2] [c,''] [d.xxx] [e]
+		urlObj[item[0]]=item[1];
+	}
+	console.log(urlObj);
+   
+    //7.已知arr=[3,6,2,4,1,5],对其进行倒排[5,1,4,2,6,3],降序[6,5,4,3,2,1]
+	var arr=[3,6,2,4,1,5]
+    // var newArr=[];
+    // for(var i=0;i<arr.length;i++){
+    // 	newArr[i]=arr[arr.length];
+    // }
+    // console.log(newArr);
+
+    // 获取数组中的最后一项 arr.splice(arr.length,1)
+    console.log(arr.reverse());
+    var res=arr.sort(function(a,b){
+    	return b-a;
+    })
+    console.log(res);
+
+    for(var i=1;i<arr.length;i++){
+    	for(var j=0;j<arr.length-i;j++){
+    		if(arr[j]<arr[j+1]){
+    			var temp=arr[j+1];
+    			arr[j+1]=arr[j];
+    			arr[j]=temp;
+    		}
+    	}
+    }
+    console.log(arr);
+
+    //8输出今日的日期，比如今天是2018年12月1日，则为2018-12-01
+    var date=new Date();
+    console.log(date)
+    var year=data.getFullYear();
+    var month=data.getMonth()+1;
+    var day=data.getDate();
+
+    month=month<10?'0'+ month:month;
+    day=day<10?'0'+day:day;
+
+    var res=year+'-'+month+'-'+day
+    console.log(res);
+
+    //9输出问题（预解析）;
+
+    var txt='hx'
+    function hello(){
+    	var txt;
+    	fn();
+    	var fn=function(){alert('hello')};
+    	function fn(){alert('world')};
+    	alert(txt);
+    	fn();
+    }
+    hello();
+
+    var txt='hx'
+    function hello(){
+    	var txt; var fn;
+    	function fn(){alert('world')};
+    	fn();//'world' 函数名与变量名重复的时候以函数名为主
+    	var fn=function(){
+    		alert('hello');
+    	}
+    	alert(txt);//undefined
+    	fn();//'hello'
+    }
+    hello();
+
+
+    var foo=1;
+    function(){
+    	console.log(foo);
+    	var foo=2;
+    	console.log(foo);
+    }
+
+    var foo=1;
+    function(){
+    	var foo;
+    	console.log(foo);//undefined
+    	foo=2;
+    	console.log(foo);//2
+    }
+
+    //10把两个数组合并，并删除第二个元素
+    var arr1=['a','b','c'];
+    var arr2=['d','e','f'];
+    var arr=arr1.concat(arr2)
+    arr.splice(1,1);//slice不改变原数组，splice改变原数组
+    console.log(arr);
+
+    //11写一个function，清空字符串前后的空格 trim()
+
+
+    //12 -----是，而不是;
+    for(i=0,j=0;i<10,j<6;i++,j++){
+    	k=i+j;
+    }
+    console.log(k);
+
+    //13
+    var arr=new Array(1,3,5);//[1,3,5]
+    arr[4]='z';//[1,3,5,,'z'];
+    arr2=arr.reverse();//['z',,5,3,1]  arr=['z',,5,3,1]
+    console.log(arr);
+    arr3=arr.concat(arr2);//['z',,5,3,1,'z',,5,3,1];
+    alert(arr3);
+
+    //数组被reverse()之后，原数组本身也会倒转；
+    var arr=[1,2,3,4];
+    var arr2=arr.reverse();
+    console.log(arr2);
+    console.log(arr);
+
+
+    //14已知str='abcdefg'，截取efg
+    var str='abcdefg';
+    var str1=str.slice(str.indexOf('e'));
+    console.log(str1);
+
+    //15已知num=12345678,转换成RMB形式，12,345,678
+    var numstr='12345678';
+    var num3=numstr.substr(-1);
+    console.log(num3);
+    var num2=numstr.substr(-4,3);
+    var num1=numstr.substr(-7);
+    var arr=[num1,num2,num3];
+    var newStr=arr.join(',');
+    console.log(newStr);
+
+    var num=12345678;
+  	var numstr=String(num);
+  	console.log(numstr,typeof(numstr));
+    var n1=numstr.substr(0,2);
+    var n2=numstr.substr(2,3);
+    var n3=numstr.substr(5,3);
+
+    var arr=[n1,n2,n3];
+    var newStr=arr.join(',')
+
+    console.log(newStr)
+
+    // 利用反转，然后for循环
+    var num=12345678;
+    var newArr=String(num).split('').reverse();
+    console.log(newArr);
+    for(var i=1;i<newArr.length;i++){
+    	var temp=[];
+    	var temp+=newArr[i-1];
+    	if(i%3==0 && i != newArr.length){
+    		temp+=','
+    	}
+    }
+    var newStr=temp.reverse().join('');
+    console.log(newStr);
+
+    //16计算字符串的字节数
+    function Num(s){
+    	if(!arguments.length || !s) return null;
+    	if(""==s) return 0;
+    	var l=0;
+    	for(var i=0;i<s.length;i++){
+    		if(s.charCodeAt(i)>255){
+    			l+=2;
+    		}else{
+    			l+=1;
+    		}
+    	}
+    	return l;
+    }
+    Num('hello world');
+
+    //
+    var a=new Object(); //{value:1}
+    a.value=1;
+    b=a;//{value:1}
+    b.value=2;//{value:2}
+    alert(a.value);//2 对象属于复杂数据类型，传递的是地址 b对象把地址里面的value值改变了
+
+
+	</script>
+
+
+
+</body>
+</html>
