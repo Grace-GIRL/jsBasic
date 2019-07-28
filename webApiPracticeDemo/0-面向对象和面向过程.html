@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 面向过程：什么事情都让自己做；（一步一步来）（难在过程）
+        // 面向对象：什么事情都让对象做：（对象来做） （找对象）
+
+        //因为觉得面向对象比面向过程还繁琐，所以就偷懒了。如果细想的话，在中大型项目
+        // 应用中，肯定面向对象要实用的多
+
+        var btn=document.getElementsByTagName("button")[0];
+        var liArr=document.getElementsByTagName("li");
+
+        btn.onclick=function(){
+            //面向对象：自定义一个对象，设置属性所有样式参数都可以传递；
+            var setLi=new SetStyle('50','50','10','green');
+            setLi.init(liArr);
+        }
+
+    
+    
+    </script>
+    
+
+    <button>设置样式</button>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+</html>
