@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 函数的三大高级操作 回调函数，递归，闭包
+
+        // 闭包：外部要使用函数内部的变量就是闭包，如果要使用值就return
+        //函数内部的变量外部想要使用就用闭包，值外部想用就直接return
+
+        // 闭包是什么？
+
+
+
+  // 使用闭包（普通局部变量，形参）
+        function fn(){
+            var num=1;
+            return function(){
+                num++;
+                console.log(num);
+            }
+        }
+
+        var aaa=fn();
+        aaa();//2
+        aaa();//3
+        aaa();//4 
+
+        fn()();//2 直接闭包，每次闭包都会初始化数据
+        fn()();//2
+        fn()();//2
+
+      
+        var liArr=document.getElementsByTagName("li");
+        for(var i=0;i<liArr.length;i++){
+            liArr[i].onclick=function(num){
+                //利用闭包弹出索引值
+                return function(){
+                    alert(num);
+                }
+            }(i);
+        }
+
+        
+
+    
+    
+    
+    </script>
+</body>
+</html>
